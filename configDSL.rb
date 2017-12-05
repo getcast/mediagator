@@ -13,6 +13,7 @@ end
 class PoolerBuilder
 	def initialize
 		@subscribers = []
+		@wait_time = 300
 	end
 
 	def sources *srcs
@@ -33,7 +34,11 @@ class PoolerBuilder
 		end  
 	end
 
+	def wait_time seconds
+		@wait_time = seconds
+	end
+
 	def build
-		Pooler.new(@sources, @extractor, @repository, @subscribers)
+		Pooler.new(@sources, @extractor, @repository, @subscribers, time: @wait_time)
 	end
 end
